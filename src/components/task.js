@@ -1,9 +1,13 @@
 export function Task(description) {
-  this.id = Date.now().toString();
-  this.description = description;
-  this.isCompleted = false;
+  this.id = Date.now(); // Gera um ID único
+  this.description = description; // Descrição da tarefa
+  this.isCompleted = false; // Estado inicial
 }
 
-Task.prototype.complete = function() {
+Task.prototype.markAsCompleted = function () {
   this.isCompleted = true;
+};
+
+Task.prototype.updateDescription = function (newDescription) {
+  this.description = newDescription;
 };
