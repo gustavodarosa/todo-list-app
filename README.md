@@ -14,9 +14,9 @@ O projeto está organizado da seguinte forma:
 
 - **index.html**: Documento HTML principal do aplicativo.
 - **styles.css**: Arquivo de estilos para o aplicativo.
-- **app.js**: Ponto de entrada do aplicativo.
-- **task.js**: Função construtora de tarefas.
-- **todoApp.js**: Função **TodoApp** que encapsula o estado da lista de tarefas.
+- **app.js**: Ponto de entrada do aplicativo, responsável por inicializar a aplicação e gerenciar eventos.
+- **task.js**: Função construtora de tarefas com métodos para manipulação de tarefas.
+- **components/todoApp.js**: Função `TodoApp` que encapsula o estado da lista de tarefas e gerencia as operações.
 - **package.json**: Arquivo de configuração do npm.
 - **README.md**: Documentação do projeto.
 
@@ -42,7 +42,13 @@ O projeto está organizado da seguinte forma:
     npm install
     ```
 
-4. **Abra o arquivo `index.html` no navegador para visualizar o aplicativo.**
+4. **Inicie o servidor local:**
+
+    ```bash
+    npm start
+    ```
+
+5. **Abra o navegador e acesse o aplicativo em `http://localhost:8080`.**
 
 ---
 
@@ -50,13 +56,16 @@ O projeto está organizado da seguinte forma:
 
 1. **Adicionar uma Tarefa:**
     - Insira a descrição da tarefa no campo de entrada.
-    - Clique no botão "Adicionar Tarefa" para adicionar a tarefa à lista.
+    - Clique no botão "Adicionar" para adicionar a tarefa à lista.
 
 2. **Concluir uma Tarefa:**
-    - Clique no botão "Concluir" ao lado da tarefa para marcar como concluída.
+    - Clique no botão "Concluir" ao lado da tarefa para marcá-la como concluída.
 
 3. **Remover uma Tarefa:**
-    - Clique no botão "Remover" ao lado da tarefa para removê-la da lista.
+    - Clique no botão "Remover" ao lado da tarefa para excluí-la da lista.
+
+4. **Limpar Todas as Tarefas:**
+    - Clique no botão "Limpar Tarefas" para remover todas as tarefas da lista e do `localStorage`.
 
 ---
 
@@ -64,44 +73,66 @@ O projeto está organizado da seguinte forma:
 
 - ✅ **Adicionar tarefas** com descrições.
 - ✅ **Marcar tarefas como concluídas**.
-- ✅ **Remover tarefas** da lista.
-- ✅ **Design responsivo** para melhor usabilidade.
+- ✅ **Remover tarefas** individualmente.
+- ✅ **Limpar todas as tarefas** da lista.
+- ✅ **Persistência de dados** com `localStorage`, garantindo que as tarefas sejam salvas mesmo após recarregar a página.
+- ✅ **Design responsivo** para melhor usabilidade em diferentes dispositivos.
 
 ---
 
-## Etapas a Serem Concluídas no Desenvolvimento
+## Tecnologias Utilizadas
+
+- **Linguagens**: JavaScript (ES6+), HTML5, CSS3
+- **Frontend**: Estrutura modular com componentes reutilizáveis
+- **Persistência de Dados**: `localStorage` para salvar e carregar tarefas
+- **Ferramentas de Desenvolvimento**: Live Server para desenvolvimento local
+- **Estilo**: Design responsivo com CSS puro
+
+---
+
+## Destaques Técnicos
+
+- **Encapsulamento de Estado**: Uso de closures na função `TodoApp` para proteger o estado interno da aplicação.
+- **Reutilização de Código**: Métodos compartilhados entre tarefas implementados com prototypes.
+- **Persistência Local**: Salvamento automático das tarefas no navegador utilizando `localStorage`.
+- **Interatividade**: Manipulação de eventos para adicionar, concluir e remover tarefas dinamicamente.
+- **Design Responsivo**: Interface adaptada para diferentes tamanhos de tela, garantindo uma boa experiência do usuário.
+
+---
+
+## Etapas Concluídas no Desenvolvimento
 
 ### 1. **Configuração Inicial**
-- [ ] Criar a estrutura básica do projeto com os arquivos mencionados.
-- [ ] Definir o **index.html** com a estrutura da página.
-- [ ] Criar o arquivo de estilos **styles.css** com um layout básico.
+- ✅ Criar a estrutura básica do projeto com os arquivos mencionados.
+- ✅ Definir o **index.html** com a estrutura da página.
+- ✅ Criar o arquivo de estilos **styles.css** com um layout básico.
 
 ### 2. **Implementação do Modelo de Tarefa (`task.js`)**
-- [ ] Criar a função construtora `Task` para representar uma tarefa.
-- [ ] Definir propriedades e métodos para tarefas, como `id`, `descricao` e `concluída`.
+- ✅ Criar a função construtora `Task` para representar uma tarefa.
+- ✅ Definir propriedades e métodos para tarefas, como `id`, `description` e `isCompleted`.
 
 ### 3. **Implementação da Função TodoApp (`todoApp.js`)**
-- [ ] Criar a função `TodoApp` para gerenciar a lista de tarefas.
-- [ ] Usar **closures** para encapsular o estado das tarefas.
-- [ ] Adicionar métodos para adicionar, concluir e remover tarefas.
-- [ ] Implementar a exibição das tarefas na tela.
+- ✅ Criar a função `TodoApp` para gerenciar a lista de tarefas.
+- ✅ Usar **closures** para encapsular o estado das tarefas.
+- ✅ Adicionar métodos para adicionar, concluir e remover tarefas.
+- ✅ Implementar a exibição das tarefas na tela.
 
 ### 4. **Lógica de Interação no Front-End (`app.js`)**
-- [ ] Adicionar a lógica de interação para adicionar tarefas, marcar como concluídas e remover tarefas.
-- [ ] Criar manipuladores de eventos para os botões de interação (Adicionar, Concluir, Remover).
-- [ ] Atualizar a interface com o estado mais recente da lista de tarefas.
+- ✅ Adicionar a lógica de interação para adicionar tarefas, marcar como concluídas e remover tarefas.
+- ✅ Criar manipuladores de eventos para os botões de interação (Adicionar, Concluir, Remover, Limpar).
+- ✅ Atualizar a interface com o estado mais recente da lista de tarefas.
 
 ### 5. **Gerenciamento de Memória**
-- [ ] Garantir que a lista de tarefas seja limpa adequadamente quando as tarefas forem removidas.
-- [ ] Usar boas práticas de **memory management** para evitar vazamentos de memória.
+- ✅ Garantir que a lista de tarefas seja limpa adequadamente quando as tarefas forem removidas.
+- ✅ Usar boas práticas de **memory management** para evitar vazamentos de memória.
 
 ### 6. **Testes e Correções**
-- [ ] Testar a funcionalidade de adicionar, concluir e remover tarefas.
-- [ ] Corrigir bugs ou melhorias que possam surgir durante os testes.
+- ✅ Testar a funcionalidade de adicionar, concluir e remover tarefas.
+- ✅ Corrigir bugs ou melhorias que surgiram durante os testes.
 
 ### 7. **Design Responsivo**
-- [ ] Garantir que o design seja responsivo e se adapte a diferentes tamanhos de tela.
-- [ ] Melhorar a experiência do usuário em dispositivos móveis.
+- ✅ Garantir que o design seja responsivo e se adapte a diferentes tamanhos de tela.
+- ✅ Melhorar a experiência do usuário em dispositivos móveis.
 
 ---
 
@@ -114,7 +145,3 @@ Contribuições são bem-vindas! Sinta-se à vontade para enviar um pull request
 ## Licença
 
 Este projeto está licenciado sob a **Licença MIT**. Consulte o arquivo **LICENSE** para mais detalhes.
-
----
-
-Agora, você pode copiar o texto sem problemas. As checkmarks estarão formatadas corretamente para uso no GitHub ou em qualquer editor Markdown.

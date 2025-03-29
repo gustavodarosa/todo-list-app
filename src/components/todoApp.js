@@ -1,61 +1,66 @@
-import { Task } from './task.js';
+function TodoApp() {
+  let tasks = []; // Lista de tarefas
 
-export function TodoApp() {
-  // Estado privado encapsulado
-  let tasks = [];
-
-  // Função para adicionar uma tarefa
   function addTask(description) {
-    const task = new Task(description);
-    tasks.push(task);
-    displayTasks();
+      const task = new Task(description); // Cria uma nova tarefa usando o construtor
+      tasks.push(task); // Adiciona a tarefa à lista
+      saveTasks();
+      renderTasks();
   }
 
-  // Função para remover uma tarefa
   function removeTask(taskId) {
-    tasks = tasks.filter(task => task.id !== taskId);
-    displayTasks();
+      tasks = tasks.filter(task => task.id !== taskId); // Remove a tarefa pelo ID
+      saveTasks();
+      renderTasks();
   }
 
-  // Função para marcar uma tarefa como concluída
-  function completeTask(taskId) {
-    const task = tasks.find(task => task.id === taskId);
-    if (task) task.complete();
-    displayTasks();
+  function clearTasks() {
+      tasks = []; // Limpa o array de tarefas
+      localStorage.removeItem('tasks'); // Remove as tarefas do localStorage
+      renderTasks(); // Atualiza a interface
   }
 
-  // Função para exibir as tarefas na tela
-  function displayTasks() {
-    const taskList = document.getElementById('taskList');
-    taskList.innerHTML = tasks.map(task => `
-      <li>
-        ${task.description} - ${task.isCompleted ? 'Concluída' : 'Pendente'}
-        <button class="completeTaskButton" data-id="${task.id}">Concluir</button>
-        <button class="removeTaskButton" data-id="${task.id}">Remover</button>
-      </li>
-    `).join('');
+  function renderTasks() {
+      const taskList = document.getElementById('taskList');
+      taskList.innerHTML = tasks.map(task => `
+          <li>
+              ${task.description} - ${task.isCompleted ? 'Concluída' : 'Pendente'}
+              <button class="complete-btn" data-id="${task.id}">Concluir</button>
+              <button class="delete-btn" data-id="${task.id}">Remover</button>
+          </li>
+      `).join('');
+
+      document.querySelectorAll('.complete-btn').forEach(button => {
+          button.addEventListener('click', handleCompleteTask);
+      });
+
+      document.querySelectorAll('.delete-btn').forEach(button => {
+          button.addEventListener('click', handleRemoveTask);
+      });
   }
 
-  // Função para sanitizar entradas do usuário
-function sanitizeInput(input) {
-  const div = document.createElement('div');
-  div.textContent = input; // Escapa caracteres perigosos
-  return div.innerHTML;
-}
+  function saveTasks() {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
-// Atualize a função addTask para usar a sanitização
-function addTask(description) {
-  const sanitizedDescription = sanitizeInput(description); // Sanitiza a entrada
-  const task = new Task(sanitizedDescription);
-  tasks.push(task);
-  displayTasks();
-}
+  function loadTasks() {
+      const storedTasks = localStorage.getItem('tasks');
+      if (storedTasks) {
+          tasks = JSON.parse(storedTasks).map(taskData => {
+              const task = new Task(taskData.description);
+              task.id = taskData.id;
+              task.isCompleted = taskData.isCompleted;
+              return task;
+          });
+      }
+  }
 
-  // Retorna apenas os métodos públicos
+  loadTasks();
+  renderTasks();
+
   return {
-    addTask,
-    removeTask,
-    completeTask,
-    displayTasks
+      addTask,
+      removeTask,
+      clearTasks, // Expondo o método clearTasks
   };
 }
